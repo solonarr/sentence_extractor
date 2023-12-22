@@ -12,19 +12,21 @@ class SentenceSyntax:
         self.morph_analyzer = pymorphy2.MorphAnalyzer()
         nlp = spacy.load("ru_core_news_sm")
         self.doc = nlp(sentence)
-        self.sent_info, self.root, self.root_pos, self.root_morph = self.get_root()
+        self.sent_info, self.root, self.root_pos, self.root_morph = self.get_sent_info()
 
-    def get_root(self):
+    def get_sent_info(self):
         """
         get sentence root and its morph characteristics
         :return: text of root, morph characteristic of root
         morph: dictionary with characteristics
         """
         sent_info = []
+        root, root_pos, root_morph = '', '', ''
+
         for token in self.doc:
             if token.pos == 'PUNCT':
                 continue
-            morph = self.morph_analyzer(token.text)[0]
+            morph = self.morph_analyzer.parse(token.text)[0]
 
             token_info: dict[str, str] = {'text': token.text,
                                           'pos': token.pos_,

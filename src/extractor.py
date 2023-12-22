@@ -49,5 +49,37 @@ class Extractor:
         pass
 
     def verbal_sentence(self):
+        pass
 
+    def nominatives(self, sentence):
+        """
+        условие для номинатива
+        :param sentence:
+        :return: true or false
+        """
+        pass
+
+    def genitives(self, sentence):
+        """
+        условие для генитива
+        :param sentence:
+        :return: true or false
+        """
+        pass
+
+    def vocatives(self, sentence):
+        """
+        условие для вокатива
+        :param sentence:
+        :return: true or false
+        """
+        pass
+
+    def infinitives(self, sentence):
+        """
+        условие для инфитивные
+        :param sentence:
+        :return: true or false
+        """
+        pass
 
