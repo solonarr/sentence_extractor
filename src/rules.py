@@ -129,4 +129,3 @@ class Rules:
         if check_cond:
             return True
         return False
-
