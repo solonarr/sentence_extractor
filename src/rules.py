@@ -104,7 +104,16 @@ class Rules:
         ифы для определенно-личных
         :return: True or False
         """
-        pass
+        check_cond = []
+        for elem in self.sent_info[0]:
+            if 'nomn' in elem['morph'].tag or elem.get('dep') == 'csubj':
+                return False
+            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph').tag or '2per' in elem.get(
+                    'morph').tag or 'impr' in elem.get('morph').tag:
+                check_cond.append(True)
+            if check_cond:
+                return True
+            return False
 
     def check_vagpersonal(self):
         """
