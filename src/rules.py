@@ -34,3 +34,24 @@ class Rules:
         :return: True or False
         """
         pass
+
+    def check_impersonal(self):
+        """
+        ифы для безличных
+        :return: True or False
+        """
+        pass
+
+    def check_defpersonal(self):
+        """
+        ифы для определенно-личных
+        :return: True or False
+        """
+        pass
+
+    def check_vagpersonal(self):
+        """
+        ифы для неопределенно-личных
+        :return: True or False
+        """
+        pass

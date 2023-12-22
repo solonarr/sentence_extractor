@@ -35,10 +35,11 @@ class Extractor:
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
                 if root_pos == 'NOUN':
-                    sent_type = nominal_sentence(rules)
+                    sent_type = self.nominal_sentence(rules)
                     # вызываем метод для именных
+                    # Нужно прописать логику добавления если sent_type не None в нужный список
                 elif root_pos == 'VERB':
-                    # метод для глагольных
+                    sent_type = self.verbal_sentence()
                 else:
                     continue
 
@@ -53,41 +54,16 @@ class Extractor:
             return 'vocative'
         if rules.check_genitive():
             return 'genitive'
+        return None
 
-        pass
+    def verbal_sentence(self, rules):
+        if rules.check_infinitive():
+            return 'infinitive'
+        if rules.check_defpersonal():
+            return 'defpersonal'
+        if rules.check_vagpersonal():
+            return 'vagpersonal'
+        if rules.check_impersonal():
+            return 'impersonal'
 
-    def verbal_sentence(self):
-        pass
-
-    def nominatives(self, sentence):
-        """
-        условие для номинатива
-        :param sentence:
-        :return: true or false
-        """
-        pass
-
-    def genitives(self, sentence):
-        """
-        условие для генитива
-        :param sentence:
-        :return: true or false
-        """
-        pass
-
-    def vocatives(self, sentence):
-        """
-        условие для вокатива
-        :param sentence:
-        :return: true or false
-        """
-        pass
-
-    def infinitives(self, sentence):
-        """
-        условие для инфитивные
-        :param sentence:
-        :return: true or false
-        """
-        pass
-
+        return None
