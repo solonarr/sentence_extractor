@@ -3,3 +3,4 @@ poetry==1.7.1
 spacy==3.7.2
 stanza==1.7.0
 textract==1.6.5
+pymorphy2==0.9.1
