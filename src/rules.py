@@ -1,4 +1,4 @@
-from sentences import SentenceSyntax
+from src.sentences import SentenceSyntax
 
 class Rules:
     def __init__(self, sentence: SentenceSyntax):

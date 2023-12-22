@@ -27,11 +27,13 @@ class Extractor:
         return all_sent
 
     def find_sentences(self):
-        # список типов предложений которые мы ищем
         all_sent = self.create_search_sent()
+        # iter_count = 0
 
+        # while any(len(value) < getattr(self.number_of_sentences, key) for key, value in all_sent.items()):
         for one_sent in self._sentences:
-            while any(len(value) < getattr(self.number_of_sentences, key) for key, value in all_sent.items()): # какое-то условие
+            if any(len(value) < getattr(self.number_of_sentences, key) for key, value in all_sent.items()): # какое-то условие
+
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
@@ -46,6 +48,8 @@ class Extractor:
                 if sent_type:
                     if len(all_sent[sent_type]) < getattr(self.number_of_sentences, sent_type):
                         all_sent[sent_type].append(sentence.get_text())
+            else:
+                return all_sent
 
         return all_sent
 
