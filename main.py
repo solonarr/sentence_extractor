@@ -4,8 +4,8 @@
 from src.extractor import Extractor
 
 if __name__ == '__main__':
-    path_to_olesya = 'sentence_extractor/texts/olesya.epub'
-    path_to_test = 'sentence_extractor/texts/test.txt'
+    path_to_olesya = './texts/olesya.epub'
+    path_to_test = './texts/test.txt'
 
     extracting = Extractor(path_to_test, nom=3, gen=2)
     sentences = extracting.get_searched_sentences()
