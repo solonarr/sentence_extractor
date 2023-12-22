@@ -60,7 +60,3 @@ class Book:
             sentences[0] = sentences[0].split('\n')[-1]  # because otherwise the name and the cover gets in
         return sentences
 
-
-if __name__ == '__main__':
-    bulgakov = Book('sentence_extractor/texts/eggs.epub')
-    bulgakov.get_text()
