@@ -12,21 +12,38 @@ class Rules:
         ифы для номинатива
         :return: True or False
         """
-        pass
+        if self.root_pos != 'NOUN':
+            return False
+
+        for morph_tag in self.root_morph:
+            if 'nomn' in morph_tag:
+                return True
+
 
     def check_genitive(self):
         """
         ифы для генитива
         :return: True or False
         """
-        pass
+        if self.root_pos != 'NOUN':
+            return False
+
+        for morph_tag in self.root_morph:
+            if 'gen2' in morph_tag or 'gent' in morph_tag:
+                return True
 
     def check_vocative(self):
         """
         ифы для вокатива
         :return: True or False
         """
-        pass
+        if self.root_pos != 'NOUN':
+            return False
+
+        for morph_tag in self.root_morph:
+            if 'voct' in morph_tag or 'gent' in morph_tag:
+                return True
+
 
     def check_infinitive(self):
         """

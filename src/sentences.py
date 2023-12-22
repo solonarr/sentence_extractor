@@ -26,7 +26,7 @@ class SentenceSyntax:
         for token in self.doc:
             if token.pos == 'PUNCT':
                 continue
-            morph = self.morph_analyzer.parse(token.text).tag
+            morph = self.morph_analyzer.tag(token.text)
 
             token_info: dict[str, str] = {'text': token.text,
                                           'pos': token.pos_,
