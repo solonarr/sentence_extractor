@@ -12,9 +12,9 @@ class SentenceSyntax:
         self.morph_analyzer = pymorphy2.MorphAnalyzer()
         nlp = spacy.load("ru_core_news_sm")
         self.doc = nlp(sentence)
-        self.root, self.root_pos, self.root_morph = self.get_root_morph()
+        self.root, self.root_pos, self.root_morph = self.get_root()
 
-    def get_root_morph(self):
+    def get_root(self):
         """
         get sentence root and its morph characteristics
         :return: text of root, morph characteristic of root
@@ -23,7 +23,10 @@ class SentenceSyntax:
         for token in self.doc:
             if token.dep_ == 'ROOT':
                 morph = self.morph_analyzer(token.text)[0]
-                return token.text, token.pos, morph
+                self.root = token.text
+                self.root_pos = token.pos
+                self.root_morph = morph
+        return
 
     def get_root_morph(self):
         return self.root_morph
