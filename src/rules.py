@@ -75,6 +75,10 @@ class Rules:
             for tag in self.root_morph:
                 if 'PRDx' in tag:
                     return True
+        for word in self.sent_info:
+            if word['dep'] == 'xcomp' and word['pos'] == 'PRED' \
+                    or 'PRDx' in word['morph'][0]:
+                return True
         # второй случай: сказуемое - безличный глагол
         if 'Impe' in self.root_morph or 'Impx' in self.root_morph:
             return True
