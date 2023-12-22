@@ -101,15 +101,15 @@ class Rules:
         :return: True or False
         """
         check_cond = []
-        for elem in self.sent_info[0]:
-            if 'nomn' in elem['morph'].tag or elem.get('dep') == 'csubj':
+        for elem in self.sent_info:
+            if 'nomn' in elem['morph'][0].tag or elem.get('dep') == 'csubj':
                 return False
-            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph').tag or '2per' in elem.get(
-                    'morph').tag or 'impr' in elem.get('morph').tag:
+            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph')[0].tag or \
+                    '2per' in elem.get('morph')[0].tag or 'impr' in elem.get('morph')[0].tag:
                 check_cond.append(True)
-            if check_cond:
-                return True
-            return False
+        if check_cond:
+            return True
+        return False
 
     def check_vagpersonal(self):
         """
