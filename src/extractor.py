@@ -10,6 +10,7 @@ from collections import namedtuple
 
 from src.text_reading import Book
 from src.sentences import SentenceSyntax
+from src.rules import Rules
 
 
 class Extractor:
@@ -32,19 +33,26 @@ class Extractor:
             while  True: # какое-то условие
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
+                rules = Rules(sentence)
                 if root_pos == 'NOUN':
+                    sent_type = nominal_sentence(rules)
                     # вызываем метод для именных
                 elif root_pos == 'VERB':
                     # метод для глагольных
                 else:
                     continue
 
-    def nominal_sentence(self, sentence):
+    def nominal_sentence(self, rules: Rules):
         """
         Обрабатываем именные, вокативные и генитивные предложения
         :return: sentence_type=str (nominative, genitive, vocative)
         """
-        if 'voct' in sentence.get_root_morph:
+        if rules.check_nominative():
+            return 'nominative'
+        if rules.check_vocative():
+            return 'vocative'
+        if rules.check_genitive():
+            return 'genitive'
 
         pass
 
