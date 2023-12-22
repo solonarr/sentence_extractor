@@ -20,7 +20,6 @@ class Rules:
             if 'nomn' in morph_tag:
                 return True
 
-
     def check_genitive(self):
         """
         ифы для генитива
@@ -48,7 +47,6 @@ class Rules:
                      ('nomn' in morph_tag and self.text[-1] == '!' and
                       'anim' in morph_tag))):
                 return True
-
 
     def check_infinitive(self):
         """

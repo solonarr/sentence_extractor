@@ -13,39 +13,50 @@ from sentence_extractor.src.rules import Rules
 
 nltk.download('punkt')
 
+
 class Extractor:
+
+    SentNumber = namedtuple("SentNumber",
+                            "nominative genitive vocative impersonal defpersonal vagpersonal infinitive")
+
     def __init__(self, path_to_book, nom=0, gen=0, voc=0,
                  impers=0, defpers=0, vagpers=0, infinit=0):
         self.book = Book(path_to_book)
         self._sentences = self.book.get_sentence()
-        SentNumber = namedtuple("SentNumber",
-                                "nominative genitive vocative impersonal defpersonal vagpersonal infinitive")
-        self.number_of_sentences = SentNumber(nom, gen, voc, impers, defpers, vagpers, infinit)
-        self.all_types = self.find_sentences()
+        self.number_of_sentences = Extractor.SentNumber(nom, gen, voc, impers, defpers, vagpers, infinit)
+        self.searched_sentences = self.find_sentences()
 
-    def find_sentences(self):
-        # список типов предложений которые мы ищем
+    def create_search_sent(self):
         all_sent = {}
+
         for key, value in self.number_of_sentences._asdict():
             if value > 0:
                 all_sent[key] = []
+
+        return all_sent
+
+    def find_sentences(self):
+        # список типов предложений которые мы ищем
+        all_sent = self.create_search_sent()
+
         for one_sent in self._sentences:
-            while  True: # какое-то условие
+            while any(len(value) < getattr(self.number_of_sentences, key) for key, value in all_sent.items()): # какое-то условие
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
+
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
-                    if sent_type:
-                        all_sent[sent_type].append(sentence.get_text())
-                    # вызываем метод для именных
-                    # Нужно прописать логику добавления если sent_type не None в нужный список
                 elif root_pos == 'VERB':
                     sent_type = self.verbal_sentence()
-                    if sent_type:
-                        all_sent[sent_type].append(sentence.get_text())
                 else:
                     continue
+
+                if sent_type:
+                    if len(all_sent[sent_type]) < getattr(self.number_of_sentences, sent_type):
+                        all_sent[sent_type].append(sentence.get_text())
+
+        return all_sent
 
     def nominal_sentence(self, rules: Rules):
         """
@@ -69,5 +80,4 @@ class Extractor:
             return 'vagpersonal'
         if rules.check_impersonal():
             return 'impersonal'
-
         return None
