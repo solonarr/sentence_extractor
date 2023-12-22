@@ -1,6 +1,11 @@
+from src.sentences import SentenceSyntax
+
 class Rules:
-    def __init__(self, sentence):
+    def __init__(self, sentence: SentenceSyntax):
         self.sentence = sentence
+        self.sent_info = sentence.get_sent_info()
+        self.root_morph = sentence.get_root_morph()
+        self.root_pos = sentence.root_pos
 
     def check_nominative(self):
         """
