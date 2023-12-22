@@ -120,4 +120,15 @@ class Rules:
         ифы для неопределенно-личных
         :return: True or False
         """
-        pass
+        check_cond = []
+        for elem in self.sent_info:
+            if 'nomn' in elem.get('morph')[0].tag or elem.get('morph')[0] == 'csubj':
+                return False
+            if elem.get('dep') == 'ROOT' and '3per' in elem.get('morph')[0].tag and 'plur' in elem.get('morph')[0].tag:
+                check_cond.append(True)
+            elif 'plur' in elem.get('morph')[0].tag and 'past' in elem.get('morph')[0].tag:
+                check_cond.append(True)
+        if check_cond:
+            return True
+        return False
+
