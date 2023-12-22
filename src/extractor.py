@@ -1,8 +1,8 @@
 from collections import namedtuple
 
-from text_reading import Book
-from sentences import SentenceSyntax
-from rules import Rules
+from src.text_reading import Book
+from src.sentences import SentenceSyntax
+from src.rules import Rules
 
 
 class Extractor:

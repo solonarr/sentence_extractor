@@ -49,6 +49,7 @@ class Book:
         with open(path, 'r') as f:
             text = f.read()
         return text
+        pass
 
     def get_text(self):
         return self._text
