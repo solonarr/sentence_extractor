@@ -1,17 +1,17 @@
-# тут пишем
 import spacy
 from spacy.lang.ru import Russian
 import textract
 import os
 import nltk
 from nltk.tokenize import sent_tokenize
-nltk.download('punkt')
+
 from collections import namedtuple
 
-from src.text_reading import Book
-from src.sentences import SentenceSyntax
-from src.rules import Rules
+from sentence_extractor.src.text_reading import Book
+from sentence_extractor.src.sentences import SentenceSyntax
+from sentence_extractor.src.rules import Rules
 
+nltk.download('punkt')
 
 class Extractor:
     def __init__(self, path_to_book, nom=0, gen=0, voc=0,
@@ -36,10 +36,14 @@ class Extractor:
                 rules = Rules(sentence)
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
+                    if sent_type:
+                        all_sent[sent_type].append(sentence.get_text())
                     # вызываем метод для именных
                     # Нужно прописать логику добавления если sent_type не None в нужный список
                 elif root_pos == 'VERB':
                     sent_type = self.verbal_sentence()
+                    if sent_type:
+                        all_sent[sent_type].append(sentence.get_text())
                 else:
                     continue
 
