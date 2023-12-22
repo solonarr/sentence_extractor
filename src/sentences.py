@@ -8,7 +8,7 @@ import pymorphy2
 class SentenceSyntax:
 
     def __init__(self, sentence):
-        self.sentence = sentence
+        self.text = sentence
         self.morph_analyzer = pymorphy2.MorphAnalyzer()
         nlp = spacy.load("ru_core_news_sm")
         self.doc = nlp(sentence)
@@ -26,7 +26,7 @@ class SentenceSyntax:
         for token in self.doc:
             if token.pos == 'PUNCT':
                 continue
-            morph = self.morph_analyzer.parse(token.text).tag
+            morph = self.morph_analyzer.tag(token.text)
 
             token_info: dict[str, str] = {'text': token.text,
                                           'pos': token.pos_,
@@ -47,5 +47,8 @@ class SentenceSyntax:
 
     def get_sentence_info(self):
         return self.sent_info
+
+    def get_text(self):
+        return self.text
 
 # короче хз че тут еще добавить, думаю насчет создания списков морф критериев и т.д
