@@ -1,5 +1,5 @@
-EbookLib==0.18
 nltk==3.8.1
 poetry==1.7.1
 spacy==3.7.2
 stanza==1.7.0
+textract==1.6.5
