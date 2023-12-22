@@ -1,5 +1,6 @@
 from src.sentences import SentenceSyntax
 
+
 class Rules:
     def __init__(self, sentence: SentenceSyntax):
         self.sentence = sentence
@@ -95,7 +96,6 @@ class Rules:
             'sing' in self.root_morph:
             return True
         return False
-
 
     def check_defpersonal(self):
         """
