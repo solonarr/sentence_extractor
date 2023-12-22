@@ -6,6 +6,7 @@ class Rules:
         self.sent_info = sentence.sent_info()
         self.root_morph = sentence.get_root_morph()
         self.root_pos = sentence.root_pos
+        self.text = sentence.get_text()
 
     def check_nominative(self):
         """
@@ -41,7 +42,11 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if len(self.sent_info == 1) and ('voct' in morph_tag or ('nomn' in morph_tag and )):
+            if (len(self.sent_info == 1) and
+                    ('voct' in morph_tag or
+                     'Name' in morph_tag or
+                     ('nomn' in morph_tag and self.text[-1] == '!' and
+                      'anim' in morph_tag))):
                 return True
 
 
