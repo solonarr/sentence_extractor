@@ -12,7 +12,7 @@ class SentenceSyntax:
         self.morph_analyzer = pymorphy2.MorphAnalyzer()
         nlp = spacy.load("ru_core_news_sm")
         self.doc = nlp(sentence)
-        self.root, self.root_pos, self.root_morph = self.get_root()
+        self.sent_info, self.root, self.root_pos, self.root_morph = self.get_root()
 
     def get_root(self):
         """
@@ -20,15 +20,30 @@ class SentenceSyntax:
         :return: text of root, morph characteristic of root
         morph: dictionary with characteristics
         """
+        sent_info = []
         for token in self.doc:
+            if token.pos == 'PUNCT':
+                continue
+            morph = self.morph_analyzer(token.text)[0]
+
+            token_info: dict[str, str] = {'text': token.text,
+                                          'pos': token.pos_,
+                                          'dep': token.dep_,
+                                          'morph': morph}
+
+            sent_info.append(token_info)
+
             if token.dep_ == 'ROOT':
-                morph = self.morph_analyzer(token.text)[0]
-                self.root = token.text
-                self.root_pos = token.pos
-                self.root_morph = morph
-        return
+                root = token.text
+                root_pos = token.pos_
+                root_morph = morph
+
+        return sent_info, root, root_pos, root_morph
 
     def get_root_morph(self):
         return self.root_morph
+
+    def get_sentence_info(self):
+        return self.sent_info
 
 # короче хз че тут еще добавить, думаю насчет создания списков морф критериев и т.д

@@ -44,7 +44,7 @@ class Extractor:
         Обрабатываем именные, вокативные и генитивные предложения
         :return: sentence_type=str (nominative, genitive, vocative)
         """
-        if 'vocat' in sentence.get_root_morph:
+        if 'voct' in sentence.get_root_morph:
 
         pass
 
