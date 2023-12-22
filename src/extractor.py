@@ -1,17 +1,8 @@
-import spacy
-from spacy.lang.ru import Russian
-import textract
-import os
-import nltk
-from nltk.tokenize import sent_tokenize
-
 from collections import namedtuple
 
-from sentence_extractor.src.text_reading import Book
-from sentence_extractor.src.sentences import SentenceSyntax
-from sentence_extractor.src.rules import Rules
-
-nltk.download('punkt')
+from text_reading import Book
+from sentences import SentenceSyntax
+from rules import Rules
 
 
 class Extractor:
@@ -48,7 +39,7 @@ class Extractor:
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
                 elif root_pos == 'VERB':
-                    sent_type = self.verbal_sentence()
+                    sent_type = self.verbal_sentence(rules)
                 else:
                     continue
 
@@ -58,7 +49,8 @@ class Extractor:
 
         return all_sent
 
-    def nominal_sentence(self, rules: Rules):
+    @staticmethod
+    def nominal_sentence(rules: Rules):
         """
         Обрабатываем именные, вокативные и генитивные предложения
         :return: sentence_type=str (nominative, genitive, vocative)
@@ -71,7 +63,8 @@ class Extractor:
             return 'genitive'
         return None
 
-    def verbal_sentence(self, rules):
+    @staticmethod
+    def verbal_sentence(rules: Rules):
         if rules.check_infinitive():
             return 'infinitive'
         if rules.check_defpersonal():
@@ -81,3 +74,6 @@ class Extractor:
         if rules.check_impersonal():
             return 'impersonal'
         return None
+
+    def get_searched_sentences(self):
+        return self.searched_sentences
