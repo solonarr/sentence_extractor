@@ -19,7 +19,6 @@ class Rules:
             if 'nomn' in morph_tag:
                 return True
 
-
     def check_genitive(self):
         """
         ифы для генитива
@@ -43,7 +42,6 @@ class Rules:
         for morph_tag in self.root_morph:
             if 'voct' in morph_tag or 'gent' in morph_tag:
                 return True
-
 
     def check_infinitive(self):
         """
