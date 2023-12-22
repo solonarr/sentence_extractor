@@ -41,7 +41,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'voct' in morph_tag or 'gent' in morph_tag:
+            if len(self.sent_info == 1) and ('voct' in morph_tag or ('nomn' in morph_tag and )):
                 return True
 
 
