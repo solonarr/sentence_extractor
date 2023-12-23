@@ -51,7 +51,7 @@ class Rules:
 
     def check_single_compound(self):
         for word in self.sent_info:
-            if 'nomn' in word.get('morph')[0] or word.get('morph')[0] == 'csubj':
+            if 'nomn' in word.get('morph')[0] or word.get('dep') == 'csubj':
                 return False
         return True
 
@@ -128,8 +128,4 @@ class Rules:
             return False
 
 
-    def check_single_compound(self):
-        for elem in self.sent_info:
-            if 'nomn' in elem.get('morph')[0] or elem.get('morph')[0] == 'csubj':
-                return False
-        return True
+
