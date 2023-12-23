@@ -48,8 +48,19 @@ class RulesBaseTests(unittest.TestCase):
         result = rule.check_infinitive()
         self.assertEqual(result, True)
 
+    def check_impersonal_differentiates_personal_verbs_from_impersonal_test(self):
+        text = 'Осталась дома'
+        sentence = SentenceSyntax(text)
+        rule = Rules(sentence)
+        result = rule.check_impersonal()
+        self.assertEqual(result, False)
 
-
+    def check_impersonal_recognises_predicatives(self):
+        text = 'Сегодня холодно'
+        sentence = SentenceSyntax(text)
+        rule = Rules(sentence)
+        result = rule.check_impersonal()
+        self.assertEqual(result, True)
 
 if __name__ == '__main__':
     unittest.main()
