@@ -49,6 +49,11 @@ class Rules:
                       'anim' in morph_tag))):
                 return True
 
+    def check_single_compound(self):
+        for word in self.sent_info:
+            if 'nomn' in word.get('morph')[0] or word.get('morph')[0] == 'csubj':
+                return False
+        return True
 
     def check_infinitive(self):
         """
@@ -97,6 +102,7 @@ class Rules:
             'sing' in self.root_morph:
             return True
         return False
+
 
     def check_defpersonal(self):
         """
