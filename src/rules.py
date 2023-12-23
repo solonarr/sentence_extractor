@@ -38,12 +38,16 @@ class Rules:
         ифы для вокатива
         :return: True or False
         """
-        if self.root_pos != 'NOUN':
-            return False
-
-        for morph_tag in self.root_morph:
-            if len(self.sent_info) == 1 and ('voct' in morph_tag.tag or 'Name' in morph_tag.tag or (self.text[-1] == '!' and 'anim' in morph_tag.tag)):
+        if self.root_pos == 'NOUN':
+            for tag in self.root_morph:
+                if 'voct' in tag.tag:
+                    return True
+        for elem in self.sent_info[0].get('morph'):
+            if 'voct' in elem.tag:
                 return True
+            elif self.sent_info[0]['text'][-1] == '!' and 'anim' in elem.tag and 'nomn' in elem.tag:
+                return True
+        return False
 
     def check_single_compound(self):
         for elem in self.sent_info:
