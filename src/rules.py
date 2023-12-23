@@ -49,11 +49,11 @@ class Rules:
                       'anim' in morph_tag.tag))):
                 return True
 
-   # def check_single_compound(self):
-      #  for word in self.sent_info:
-        #    if 'nomn' in word.get('morph')[0] or word.get('dep') == 'csubj':
-        #        return False
-       # return True
+    def check_single_compound(self):
+        for elem in self.sent_info:
+            if elem.get('dep') == 'csubj' or 'nomn' in elem.get('morph')[0].tag:
+                return False
+        return True
 
     def check_infinitive(self):
         """
@@ -109,9 +109,9 @@ class Rules:
         ифы для определенно-личных
         :return: True or False
         """
-
-        if '1per' in self.root_morph or '2per' in self.root_morph or 'impr' in self.root_morph:
-            return True
+        if self.check_single_compound():
+            if '1per' in self.root_morph or '2per' in self.root_morph or 'impr' in self.root_morph:
+                return True
         return False
 
     def check_vagpersonal(self):
@@ -119,10 +119,11 @@ class Rules:
         ифы для неопределенно-личных
         :return: True or False
         """
-        if '3per' in self.root_morph and 'plur' in self.root_morph:
-            return True
-        elif 'plur' in self.root_morph and 'past' in self.root_morph:
-            return True
+        if self.check_single_compound():
+            if '3per' in self.root_morph and 'plur' in self.root_morph:
+                return True
+            elif 'plur' in self.root_morph and 'past' in self.root_morph:
+                return True
         return False
 
 
