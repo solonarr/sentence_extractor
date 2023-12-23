@@ -11,7 +11,8 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_create_search_sent(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2,
+                                       impers=1)
         sample = {'nominative': [],
                   'impersonal': []}
         result = extractor_instance.create_search_sent()
@@ -26,7 +27,8 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_create_search_other_sent(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, gen=3, nom=2, impers=1)
+        extractor_instance = Extractor(path_to_book=path_to_book, gen=3,
+                                       nom=2, impers=1)
         sample = {
             'nominative': [],
             'genitive': [],
@@ -37,7 +39,8 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_find_sentence(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, vagpers=1)
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2,
+                                       vagpers=1)
         sample = {'nominative': ['Снег да горки.', 'Зима.'],
                   'vagpersonal': ['В дверь постучали.']}
         result = extractor_instance.get_searched_sentences()
@@ -80,7 +83,8 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_getter_test(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, vagpers=1)
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2,
+                                       vagpers=1)
         sample = {'nominative': ['Снег да горки.', 'Зима.'],
                   'vagpersonal': ['В дверь постучали.']}
         result = extractor_instance.get_searched_sentences()
