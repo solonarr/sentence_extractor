@@ -18,7 +18,6 @@ class Extractor:
         self.number_of_sentences = Extractor.SentNumber(nom, gen,
                                                         impers, defpers,
                                                         vagpers, infinit)
-        self.searched_sentences = self.find_sentences()
 
     def create_search_sent(self):
         all_sent = {}
@@ -31,16 +30,14 @@ class Extractor:
 
     def find_sentences(self):
         all_sent = self.create_search_sent()
-        # iter_count = 0
 
         for one_sent in self._sentences:
             if any(len(value) < getattr(self.number_of_sentences, key)
-                   for key, value in all_sent.items()):  # какое-то условие
+                   for key, value in all_sent.items()):
 
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
-                # print('произошло что-то хорошее')
 
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
@@ -85,4 +82,5 @@ class Extractor:
         return None
 
     def get_searched_sentences(self):
-        return self.searched_sentences
+        searched_sentences = self.find_sentences()
+        return searched_sentences
