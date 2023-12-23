@@ -23,15 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m venv .venv
           source .venv/bin/activate
-<<<<<<< HEAD
-          pip install requirements.txt
-          python -m spacy download ru_core_news_sm
-          python -m pytest tests
-=======
-          pip install poetry
-          poetry update
-          python -m pytest tests
-
   flake8_py3:
     runs-on: ubuntu-latest
     steps:
@@ -46,8 +37,12 @@ jobs:
         run: pip install flake8
       - name: Run flake8
         run: flake8
-        with:
-          checkName: 'flake8_py3'   # NOTE: this needs to be the same as the job name
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> 3e19aa8f1069bdeb44b280b30b64663cdb629498
+<<<<<<< HEAD
+          pip install requirements.txt
+          python -m spacy download ru_core_news_sm
+          python -m pytest tests
+=======
+          pip install poetry
+          poetry update
+          python -m pytest tests
+
