@@ -69,6 +69,7 @@ class Extractor:
 
     @staticmethod
     def verbal_sentence(rules: Rules):
+
         if rules.check_infinitive():
             return 'infinitive'
         if rules.check_defpersonal():
