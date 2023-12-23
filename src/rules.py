@@ -4,7 +4,7 @@ from src.sentences import SentenceSyntax
 class Rules:
     def __init__(self, sentence: SentenceSyntax):
         self.sentence = sentence
-        self.sent_info = sentence.sent_info()
+        self.sent_info = sentence.get_sentence_info()
         self.root_morph = sentence.get_root_morph()
         self.root_pos = sentence.root_pos
         self.text = sentence.get_text()
@@ -129,3 +129,6 @@ class Rules:
         if check_cond:
             return True
         return False
+
+    def check_single_compound(self):
+        pass
