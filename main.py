@@ -9,5 +9,6 @@ if __name__ == '__main__':
 
     extracting = Extractor(path_to_test, nom=3, gen=2)
     sentences = extracting.get_searched_sentences()
+    print(sentences)
     for key, value in sentences.items():
         print(key, value)
