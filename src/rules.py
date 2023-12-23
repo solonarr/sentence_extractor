@@ -4,7 +4,7 @@ from src.sentences import SentenceSyntax
 class Rules:
     def __init__(self, sentence: SentenceSyntax):
         self.sentence = sentence
-        self.sent_info = sentence.sent_info()
+        self.sent_info = sentence.get_sentence_info()
         self.root_morph = sentence.get_root_morph()
         self.root_pos = sentence.root_pos
         self.text = sentence.get_text()
@@ -58,7 +58,7 @@ class Rules:
             return True
         else:
             for word in self.sent_info:
-                if word['dep'] == 'cop' and word['pos'] == 'INFN':
+                if word.get('dep') == 'cop' and word.get('pos') == 'INFN':
                     return True
         return False
 
@@ -75,7 +75,7 @@ class Rules:
                 if 'PRDx' in tag:
                     return True
         for word in self.sent_info:
-            if word['dep'] == 'xcomp' and word['pos'] == 'PRED' \
+            if word.get('dep') == 'xcomp' and word.get('pos') == 'PRED' \
                     or 'PRDx' in word['morph'][0]:
                 return True
         # второй случай: сказуемое - безличный глагол
@@ -104,10 +104,10 @@ class Rules:
         """
         check_cond = []
         for elem in self.sent_info:
-            if 'nomn' in elem['morph'][0].tag or elem.get('dep') == 'csubj':
-                return False
-            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph')[0].tag or \
-                    '2per' in elem.get('morph')[0].tag or 'impr' in elem.get('morph')[0].tag:
+            # if 'nomn' in elem['morph'] or elem.get('dep') == 'csubj':
+            #     return False
+            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph') or \
+                    '2per' in elem.get('morph') or 'impr' in elem.get('morph'):
                 check_cond.append(True)
         if check_cond:
             return True
@@ -120,12 +120,18 @@ class Rules:
         """
         check_cond = []
         for elem in self.sent_info:
-            if 'nomn' in elem.get('morph')[0].tag or elem.get('morph')[0] == 'csubj':
-                return False
-            if elem.get('dep') == 'ROOT' and '3per' in elem.get('morph')[0].tag and 'plur' in elem.get('morph')[0].tag:
+        #     if 'nomn' in elem.get('morph') or elem.get('morph')[0] == 'csubj':
+        #         return False
+            if elem.get('dep') == 'ROOT' and '3per' in elem.get('morph') and 'plur' in elem.get('morph'):
                 check_cond.append(True)
-            elif 'plur' in elem.get('morph')[0].tag and 'past' in elem.get('morph')[0].tag:
+            elif 'plur' in elem.get('morph') and 'past' in elem.get('morph'):
                 check_cond.append(True)
         if check_cond:
             return True
         return False
+
+    def check_single_compound(self):
+        for elem in self.sent_info:
+            if 'nomn' in elem.get('morph') or elem.get('morph')[0] == 'csubj':
+                return False
+        return True
