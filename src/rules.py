@@ -111,8 +111,9 @@ class Rules:
         """
 
         if self.check_single_compound():
-            if '1per' in self.root_morph or '2per' in self.root_morph or 'impr' in self.root_morph:
-                return True
+            for tag in self.root_morph:
+                if '1per' in tag or '2per' in tag or 'impr' in tag:
+                    return True
         return False
 
     def check_vagpersonal(self):
