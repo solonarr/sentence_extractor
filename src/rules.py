@@ -33,10 +33,10 @@ class Rules:
             if 'gen2' in morph_tag.tag or 'gent' in morph_tag.tag:
                 return True
 
-
     def check_single_compound(self):
         for elem in self.sent_info:
-            if elem.get('dep') == 'csubj' or 'nomn' in elem.get('morph')[0].tag:
+            if (elem.get('dep') == 'csubj'
+                    or 'nomn' in elem.get('morph')[0].tag):
                 return False
         return True
 
@@ -51,7 +51,8 @@ class Rules:
                     return True
         else:
             for elem in self.sent_info:
-                if elem.get('dep') == 'cop' and 'INFN' in elem.get('morph')[0].tag:
+                if (elem.get('dep') == 'cop'
+                        and 'INFN' in elem.get('morph')[0].tag):
                     return True
         return False
 
@@ -82,11 +83,11 @@ class Rules:
             return True
         # четвертый случай: краткое страдательное причастие прошедшего времени
         if self.root_pos == 'PRTS' and \
-            'perf' in self.root_morph and \
-            'past' in self.root_morph and \
-            'pssv' in self.root_morph and \
-            'neut' in self.root_morph and \
-            'sing' in self.root_morph:
+                'perf' in self.root_morph and \
+                'past' in self.root_morph and \
+                'pssv' in self.root_morph and \
+                'neut' in self.root_morph and \
+                'sing' in self.root_morph:
             return True
         return False
 
@@ -111,5 +112,3 @@ class Rules:
             elif 'plur' in tag.tag and 'past' in tag.tag:
                 return True
         return False
-
-
