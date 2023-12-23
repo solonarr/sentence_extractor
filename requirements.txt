@@ -1,6 +1,7 @@
 nltk==3.8.1
 poetry==1.7.1
 spacy==3.7.2
+ru-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/ru_core_news_sm-3.1.0/ru_core_news_sm-3.1.0.tar.gz
 stanza==1.7.0
 textract==1.6.5
 pymorphy2==0.9.1
