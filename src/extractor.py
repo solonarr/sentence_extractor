@@ -1,8 +1,8 @@
 from collections import namedtuple
 
-from text_reading import Book
-from sentences import SentenceSyntax
-from rules import Rules
+from src.text_reading import Book
+from src.sentences import SentenceSyntax
+from src.rules import Rules
 
 
 class Extractor:
@@ -20,7 +20,7 @@ class Extractor:
     def create_search_sent(self):
         all_sent = {}
 
-        for key, value in self.number_of_sentences._asdict():
+        for key, value in self.number_of_sentences._asdict().items():
             if value > 0:
                 all_sent[key] = []
 
