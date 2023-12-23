@@ -3,7 +3,7 @@ I guess we should do a sent_extractor here
 """
 import spacy
 import pymorphy2
-
+import ru_core_news_sm
 
 class SentenceSyntax:
 

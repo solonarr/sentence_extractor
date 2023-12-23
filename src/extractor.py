@@ -37,6 +37,7 @@ class Extractor:
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
+                # print('произошло что-то хорошее')
 
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
