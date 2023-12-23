@@ -18,7 +18,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'nomn' in morph_tag:
+            if 'nomn' in morph_tag.tag:
                 return True
 
     def check_genitive(self):
@@ -30,7 +30,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'gen2' in morph_tag or 'gent' in morph_tag:
+            if 'gen2' in morph_tag.tag or 'gent' in morph_tag.tag:
                 return True
 
     def check_vocative(self):
@@ -42,23 +42,27 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if (len(self.sent_info == 1) and
-                    ('voct' in morph_tag or
-                     'Name' in morph_tag or
-                     ('nomn' in morph_tag and self.text[-1] == '!' and
-                      'anim' in morph_tag))):
+            if len(self.sent_info) == 1 and ('voct' in morph_tag.tag or 'Name' in morph_tag.tag or (self.text[-1] == '!' and 'anim' in morph_tag.tag)):
                 return True
+
+    def check_single_compound(self):
+        for elem in self.sent_info:
+            if elem.get('dep') == 'csubj' or 'nomn' in elem.get('morph')[0].tag:
+                return False
+        return True
 
     def check_infinitive(self):
         """
         ифы для инфинитивных
         :return: True or False
         """
-        if self.root_pos == 'INFN':
-            return True
+        if self.root_pos == 'VERB':
+            for tag in self.root_morph:
+                if 'INFN' in tag.tag:
+                    return True
         else:
-            for word in self.sent_info:
-                if word.get('dep') == 'cop' and word.get('pos') == 'INFN':
+            for elem in self.sent_info:
+                if elem.get('dep') == 'cop' and 'INFN' in elem.get('morph')[0].tag:
                     return True
         return False
 
@@ -72,11 +76,11 @@ class Rules:
             return True
         else:
             for tag in self.root_morph:
-                if 'PRDx' in tag:
+                if 'Prdx' in tag.tag:
                     return True
         for word in self.sent_info:
             if word.get('dep') == 'xcomp' and word.get('pos') == 'PRED' \
-                    or 'PRDx' in word['morph'][0]:
+                    or 'Prdx' in word['morph'][0].tag:
                 return True
         # второй случай: сказуемое - безличный глагол
         if 'Impe' in self.root_morph or 'Impx' in self.root_morph:
@@ -102,15 +106,9 @@ class Rules:
         ифы для определенно-личных
         :return: True or False
         """
-        check_cond = []
-        for elem in self.sent_info:
-            # if 'nomn' in elem['morph'] or elem.get('dep') == 'csubj':
-            #     return False
-            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph') or \
-                    '2per' in elem.get('morph') or 'impr' in elem.get('morph'):
-                check_cond.append(True)
-        if check_cond:
-            return True
+        for tag in self.root_morph:
+            if '1per' in tag.tag or '2per' in tag.tag or 'impr' in tag.tag:
+                return True
         return False
 
     def check_vagpersonal(self):
@@ -118,20 +116,11 @@ class Rules:
         ифы для неопределенно-личных
         :return: True or False
         """
-        check_cond = []
-        for elem in self.sent_info:
-        #     if 'nomn' in elem.get('morph') or elem.get('morph')[0] == 'csubj':
-        #         return False
-            if elem.get('dep') == 'ROOT' and '3per' in elem.get('morph') and 'plur' in elem.get('morph'):
-                check_cond.append(True)
-            elif 'plur' in elem.get('morph') and 'past' in elem.get('morph'):
-                check_cond.append(True)
-        if check_cond:
-            return True
+        for tag in self.root_morph:
+            if '3per' in tag.tag and 'plur' in tag.tag:
+                return True
+            elif 'plur' in tag.tag and 'past' in tag.tag:
+                return True
         return False
 
-    def check_single_compound(self):
-        for elem in self.sent_info:
-            if 'nomn' in elem.get('morph') or elem.get('morph')[0] == 'csubj':
-                return False
-        return True
+

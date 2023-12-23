@@ -3,7 +3,7 @@ I guess we should do a sent_extractor here
 """
 import spacy
 import pymorphy2
-
+import ru_core_news_sm
 
 class SentenceSyntax:
 
@@ -26,7 +26,7 @@ class SentenceSyntax:
         for token in self.doc:
             if token.pos == 'PNCT':
                 continue
-            morph = self.morph_analyzer.tag(token.text)
+            morph = self.morph_analyzer.parse(token.text)
 
             token_info = {'text': token.text,
                                           'pos': token.pos_,

@@ -37,6 +37,7 @@ class Extractor:
                 sentence = SentenceSyntax(one_sent)
                 root_pos = sentence.root_pos
                 rules = Rules(sentence)
+                # print('произошло что-то хорошее')
 
                 if root_pos == 'NOUN':
                     sent_type = self.nominal_sentence(rules)
@@ -69,8 +70,8 @@ class Extractor:
 
     @staticmethod
     def verbal_sentence(rules: Rules):
-        if not rules.check_single_compound():
-            return None
+        #if not rules.check_single_compound():
+         #   return None
         if rules.check_infinitive():
             return 'infinitive'
         if rules.check_defpersonal():
