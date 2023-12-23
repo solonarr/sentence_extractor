@@ -11,12 +11,22 @@ from nltk.tokenize import sent_tokenize
 nltk.download('punkt')
 
 
+class UnknownExtensionError(Exception):
+    """
+    Is trown when the given extension
+    can't be processed by read_text method
+    """
+
+
 class Book:
     def __init__(self, path):
         self.path = path
         self.ext = os.path.splitext(self.path)[-1]
         self._text = self.read_text()
-        self.sentences = self.get_sentence()
+        if not self._text:
+            self.sentences = []
+        else:
+            self.sentences = self.get_sentence()
 
     def read_text(self):
         """
@@ -28,6 +38,8 @@ class Book:
             return self.extract_epub(self.path)
         elif self.ext == '.txt':
             return self.extract_txt(self.path)
+        else:
+            raise UnknownExtensionError('given extension cannot be processed')
 
     @staticmethod
     def extract_epub(path):
@@ -37,7 +49,9 @@ class Book:
         :return: str from epub file
         """
         text = textract.process(path, encoding='utf-8').decode()
-        return text
+        if text:
+            return text
+        return
 
     @staticmethod
     def extract_txt(path):
@@ -48,7 +62,9 @@ class Book:
         """
         with open(path, 'r', encoding="utf-8") as f:
             text = f.read()
-        return text
+        if text:
+            return text
+        return
         pass
 
     def get_text(self):
