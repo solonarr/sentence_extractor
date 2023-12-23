@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "sentence-extractor"
+version = "0.1.0"
+description = "algoritm of extraction of different types of simple sentences in Russian language"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+nltk = "^3.8.1"
+poetry = "^1.7.1"
+spacy = "^3.7.2"
+stanza = "^1.7.0"
+textract = "^1.6.5"
+pymorphy2 = "^0.9.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
