@@ -37,9 +37,9 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_find_sentence(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
-        sample = {'nominative': ['Снег да горки.' 'Зима.'],
-                  'impersonal': ['Стало очень холодно.']}
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, vagpers=1)
+        sample = {'nominative': ['Снег да горки.', 'Зима.'],
+                  'vagpersonal': ['В дверь постучали.']}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
 
@@ -58,7 +58,7 @@ class ExtractorBaseTests(unittest.TestCase):
         self.assertEqual(sample, result)
 
     def test_nominal_sentence_genitives(self):
-        sentence = SentenceSyntax('Хлеба!')
+        sentence = SentenceSyntax('Народу!')
         rule = Rules(sentence)
         sample = 'genitive'
         result = Extractor.nominal_sentence(rule)
@@ -72,7 +72,7 @@ class ExtractorBaseTests(unittest.TestCase):
         self.assertEqual(sample, result)
 
     def test_verbal_sentence_infinitive(self):
-        sentence = SentenceSyntax('Дать детям детство!')
+        sentence = SentenceSyntax('Мне бы уснуть.')
         rule = Rules(sentence)
         sample = 'infinitive'
         result = Extractor.verbal_sentence(rule)
@@ -80,9 +80,9 @@ class ExtractorBaseTests(unittest.TestCase):
 
     def test_getter_test(self):
         path_to_book = Path(__file__).parent.parent / './texts/test.txt'
-        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
-        sample = {'nominative': ['Снег да горки.' 'Зима.'],
-                  'impersonal': ['Стало очень холодно.']}
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, vagpers=1)
+        sample = {'nominative': ['Снег да горки.', 'Зима.'],
+                  'vagpersonal': ['В дверь постучали.']}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
 
