@@ -8,13 +8,13 @@ from src.rules import Rules
 class Extractor:
 
     SentNumber = namedtuple("SentNumber",
-                            "nominative genitive vocative impersonal defpersonal vagpersonal infinitive")
+                            "nominative genitive impersonal defpersonal vagpersonal infinitive")
 
-    def __init__(self, path_to_book, nom=0, gen=0, voc=0,
+    def __init__(self, path_to_book, nom=0, gen=0,
                  impers=0, defpers=0, vagpers=0, infinit=0):
         self.book = Book(path_to_book)
         self._sentences = self.book.get_sentence()
-        self.number_of_sentences = Extractor.SentNumber(nom, gen, voc, impers, defpers, vagpers, infinit)
+        self.number_of_sentences = Extractor.SentNumber(nom, gen, impers, defpers, vagpers, infinit)
         self.searched_sentences = self.find_sentences()
 
     def create_search_sent(self):
@@ -62,8 +62,6 @@ class Extractor:
         """
         if rules.check_nominative():
             return 'nominative'
-        if rules.check_vocative():
-            return 'vocative'
         if rules.check_genitive():
             return 'genitive'
         return None

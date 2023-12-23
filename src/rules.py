@@ -33,21 +33,6 @@ class Rules:
             if 'gen2' in morph_tag.tag or 'gent' in morph_tag.tag:
                 return True
 
-    def check_vocative(self):
-        """
-        ифы для вокатива
-        :return: True or False
-        """
-        if self.root_pos == 'NOUN':
-            for tag in self.root_morph:
-                if 'voct' in tag.tag:
-                    return True
-        for elem in self.sent_info[0].get('morph'):
-            if 'voct' in elem.tag:
-                return True
-            elif self.sent_info[0]['text'][-1] == '!' and 'anim' in elem.tag and 'nomn' in elem.tag:
-                return True
-        return False
 
     def check_single_compound(self):
         for elem in self.sent_info:

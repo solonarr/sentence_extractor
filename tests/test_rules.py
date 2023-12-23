@@ -20,19 +20,6 @@ class RulesBaseTests(unittest.TestCase):
         result = rule.check_nominative()
         self.assertEqual(result, False)
 
-    def test_check_vocative_recognises_vocatives(self):
-        text = 'Мам.'
-        sentence = SentenceSyntax(text)
-        rule = Rules(sentence)
-        result = rule.check_vocative()
-        self.assertEqual(result, True)
-
-    def test_check_vocative_can_differentiate_similar_sent(self):
-        text = 'Хлеба!'
-        sentence = SentenceSyntax(text)
-        rule = Rules(sentence)
-        result = rule.check_vocative()
-        self.assertEqual(result, False)
 
     def test_check_infinitive_can_recognise_inf_copula(self):
         text = 'Быть художником.'
