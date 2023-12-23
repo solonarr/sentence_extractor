@@ -18,7 +18,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'nomn' in morph_tag:
+            if 'nomn' in morph_tag.tag:
                 return True
 
     def check_genitive(self):
@@ -30,7 +30,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'gen2' in morph_tag or 'gent' in morph_tag:
+            if 'gen2' in morph_tag.tag or 'gent' in morph_tag.tag:
                 return True
 
     def check_vocative(self):
@@ -42,18 +42,18 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if (len(self.sent_info == 1) and
-                    ('voct' in morph_tag or
-                     'Name' in morph_tag or
-                     ('nomn' in morph_tag and self.text[-1] == '!' and
-                      'anim' in morph_tag))):
+            if (len(self.sent_info) == 1 and
+                    ('voct' in morph_tag.tag or
+                     'Name' in morph_tag.tag or
+                     ('nomn' in morph_tag.tag and self.text[-1] == '!' and
+                      'anim' in morph_tag.tag))):
                 return True
 
-    def check_single_compound(self):
-        for word in self.sent_info:
-            if 'nomn' in word.get('morph')[0] or word.get('dep') == 'csubj':
-                return False
-        return True
+   # def check_single_compound(self):
+      #  for word in self.sent_info:
+        #    if 'nomn' in word.get('morph')[0] or word.get('dep') == 'csubj':
+        #        return False
+       # return True
 
     def check_infinitive(self):
         """
@@ -78,11 +78,11 @@ class Rules:
             return True
         else:
             for tag in self.root_morph:
-                if 'PRDx' in tag:
+                if 'Prdx' in tag.tag:
                     return True
         for word in self.sent_info:
             if word.get('dep') == 'xcomp' and word.get('pos') == 'PRED' \
-                    or 'PRDx' in word['morph'][0]:
+                    or 'Prdx' in word['morph'][0].tag:
                 return True
         # второй случай: сказуемое - безличный глагол
         if 'Impe' in self.root_morph or 'Impx' in self.root_morph:
@@ -110,10 +110,8 @@ class Rules:
         :return: True or False
         """
 
-        if self.check_single_compound():
-            for tag in self.root_morph:
-                if '1per' in tag or '2per' in tag or 'impr' in tag:
-                    return True
+        if '1per' in self.root_morph or '2per' in self.root_morph or 'impr' in self.root_morph:
+            return True
         return False
 
     def check_vagpersonal(self):
@@ -121,12 +119,11 @@ class Rules:
         ифы для неопределенно-личных
         :return: True or False
         """
-        if self.check_single_compound():
-            if '3per' in self.root_morph and 'plur' in self.root_morph:
-                return True
-            elif 'plur' in self.root_morph and 'past' in self.root_morph:
-                return True
-            return False
+        if '3per' in self.root_morph and 'plur' in self.root_morph:
+            return True
+        elif 'plur' in self.root_morph and 'past' in self.root_morph:
+            return True
+        return False
 
 
 

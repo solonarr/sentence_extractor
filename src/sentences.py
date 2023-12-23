@@ -26,7 +26,7 @@ class SentenceSyntax:
         for token in self.doc:
             if token.pos == 'PNCT':
                 continue
-            morph = self.morph_analyzer.tag(token.text)
+            morph = self.morph_analyzer.parse(token.text)
 
             token_info = {'text': token.text,
                                           'pos': token.pos_,
