@@ -8,26 +8,26 @@ import textract
 import os
 import nltk
 from nltk.tokenize import sent_tokenize
-# nltk.download('punkt')
+nltk.download('punkt')
 
 
 class Book:
     def __init__(self, path):
         self.path = path
         self.ext = os.path.splitext(self.path)[-1]
-        self._text = self.read_text(self.path)
+        self._text = self.read_text()
         self.sentences = self.get_sentence()
 
-    def read_text(self, path):
+    def read_text(self):
         """
         Get string from path
         :param path: path to file
         :return: str with text from path
         """
         if self.ext == '.epub':
-            return self.extract_epub(path)
+            return self.extract_epub(self.path)
         elif self.ext == '.txt':
-            return self.extract_txt(path)
+            return self.extract_txt(self.path)
 
     @staticmethod
     def extract_epub(path):
@@ -46,9 +46,10 @@ class Book:
         :param path: path to txt file
         :return: str from txt file
         """
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding="utf-8") as f:
             text = f.read()
         return text
+        pass
 
     def get_text(self):
         return self._text

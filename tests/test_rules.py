@@ -1,44 +1,53 @@
 import unittest
-from src.rules import Rules
+
 from src.sentences import SentenceSyntax
+from src.rules import Rules
+
 
 class RulesBaseTests(unittest.TestCase):
 
-    def test_check_nominative(self):
-        self.assertEqual(True, False)
-
-
-
-    def test_check_defpersonal_ind(self):
-        text = 'Пойдем со мной.'
+    def check_nominative_can_define_correct_sent_test(self):
+        text = 'Снег да горки'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
-        result = rule.check_defpersonal()
+        result = rule.check_nominative()
         self.assertEqual(result, True)
 
-    def test_check_defpersonal_impr(self):
-        text = 'Принеси отцу пива.'
+    def check_nominative_can_differentiate_similar_sent_test(self):
+        text = 'Кать!'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
-        result = rule.check_defpersonal()
-        self.assertEqual(result, True)
+        result = rule.check_nominative()
+        self.assertEqual(result, False)
 
-
-
-
-    def test_check_vagpersonal_in_pres(self):
-        text = 'Тебя зовут гулять.'
+    def check_vocative_recognises_vocatives_test(self):
+        text = 'Мам.'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
-        result = rule.check_vagpersonal()
+        result = rule.check_vocative()
         self.assertEqual(result, True)
 
-    def test_check_vagpersonal_in_past(self):
-        text = 'В дверь позвонили.'
+    def check_vocative_can_differentiate_similar_sent_test(self):
+        text = 'Хлеба!'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
-        result = rule.check_vagpersonal()
+        result = rule.check_vocative()
+        self.assertEqual(result, False)
+
+    def check_infinitive_can_recognise_inf_copula_test(self):
+        text = 'Быть художником.'
+        sentence = SentenceSyntax(text)
+        rule = Rules(sentence)
+        result = rule.check_infinitive()
         self.assertEqual(result, True)
+
+    def check_infinitive_can_recognise_infinitives_with_modal_words_test(self):
+        text = 'Можно начинать собираться'
+        sentence = SentenceSyntax(text)
+        rule = Rules(sentence)
+        result = rule.check_infinitive()
+        self.assertEqual(result, True)
+
 
 
 
