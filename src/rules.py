@@ -45,22 +45,24 @@ class Rules:
             if len(self.sent_info) == 1 and ('voct' in morph_tag.tag or 'Name' in morph_tag.tag or (self.text[-1] == '!' and 'anim' in morph_tag.tag)):
                 return True
 
-   # def check_single_compound(self):
-      #  for word in self.sent_info:
-        #    if 'nomn' in word.get('morph')[0] or word.get('dep') == 'csubj':
-        #        return False
-       # return True
+    def check_single_compound(self):
+        for elem in self.sent_info:
+            if elem.get('dep') == 'csubj' or 'nomn' in elem.get('morph')[0].tag:
+                return False
+        return True
 
     def check_infinitive(self):
         """
         ифы для инфинитивных
         :return: True or False
         """
-        if self.root_pos == 'INFN':
-            return True
+        if self.root_pos == 'VERB':
+            for tag in self.root_morph:
+                if 'INFN' in tag.tag:
+                    return True
         else:
-            for word in self.sent_info:
-                if word.get('dep') == 'cop' and word.get('pos') == 'INFN':
+            for elem in self.sent_info:
+                if elem.get('dep') == 'cop' and 'INFN' in elem.get('morph')[0].tag:
                     return True
         return False
 
@@ -99,7 +101,6 @@ class Rules:
             return True
         return False
 
-
     def check_defpersonal(self):
         """
         ифы для определенно-личных
@@ -121,6 +122,5 @@ class Rules:
             elif 'plur' in tag.tag and 'past' in tag.tag:
                 return True
         return False
-
 
 
