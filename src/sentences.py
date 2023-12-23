@@ -6,7 +6,10 @@ import pymorphy2
 
 
 class SentenceSyntax:
-
+    """
+    Represents a sentence with its syntactical and
+    morphological properties
+    """
     def __init__(self, sentence):
         self.text = sentence
         self.morph_analyzer = pymorphy2.MorphAnalyzer()

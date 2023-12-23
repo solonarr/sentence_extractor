@@ -4,24 +4,29 @@ from src.extractor import Extractor
 from src.sentences import SentenceSyntax
 from src.rules import Rules
 
+from pathlib import Path
+
 
 class ExtractorBaseTests(unittest.TestCase):
 
     def test_create_search_sent(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt', nom=2, impers=1)
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
         sample = {'nominative': [],
                   'impersonal': []}
         result = extractor_instance.create_search_sent()
         self.assertDictEqual(sample, result)
 
     def test_create_search_sent_empty(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt')
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book)
         sample = {}
         result = extractor_instance.create_search_sent()
         self.assertDictEqual(sample, result)
 
     def test_create_search_other_sent(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt', gen=3, nom=2, impers=1)
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book, gen=3, nom=2, impers=1)
         sample = {
             'nominative': [],
             'genitive': [],
@@ -31,14 +36,16 @@ class ExtractorBaseTests(unittest.TestCase):
         self.assertDictEqual(sample, result)
 
     def test_find_sentence(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt', nom=2, impers=1)
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
         sample = {'nominative': ['Снег да горки.' 'Зима.'],
                   'impersonal': ['Стало очень холодно.']}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
 
     def test_find_sentence_empty(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt')
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book)
         sample = {}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
@@ -72,14 +79,16 @@ class ExtractorBaseTests(unittest.TestCase):
         self.assertEqual(sample, result)
 
     def test_getter_test(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt', nom=2, impers=1)
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book, nom=2, impers=1)
         sample = {'nominative': ['Снег да горки.' 'Зима.'],
                   'impersonal': ['Стало очень холодно.']}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
 
     def test_getter_test_empty(self):
-        extractor_instance = Extractor(path_to_book='texts/test.txt')
+        path_to_book = Path(__file__).parent.parent / './texts/test.txt'
+        extractor_instance = Extractor(path_to_book=path_to_book)
         sample = {}
         result = extractor_instance.get_searched_sentences()
         self.assertDictEqual(sample, result)
