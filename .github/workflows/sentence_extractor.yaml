@@ -30,8 +30,8 @@ jobs:
           python -m spacy download ru_core_news_sm
           python -m pytest tests
 =======
-          pip install requirements.txt
-          python -m spacy download ru_core_news_sm
+          pip install poetry
+          poetry update
           python -m pytest tests
 
   flake8_py3:
