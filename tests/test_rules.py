@@ -20,7 +20,6 @@ class RulesBaseTests(unittest.TestCase):
         result = rule.check_nominative()
         self.assertEqual(result, False)
 
-
     def test_check_infinitive_can_recognise_inf_copula(self):
         text = 'Быть художником.'
         sentence = SentenceSyntax(text)
@@ -35,7 +34,7 @@ class RulesBaseTests(unittest.TestCase):
         result = rule.check_infinitive()
         self.assertEqual(result, True)
 
-    def test_check_impersonal_differentiates_personal_verbs_from_impersonal(self):
+    def test_check_impersonal_differs_personal_verbs_from_impersonal(self):
         text = 'Осталась дома'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
@@ -90,6 +89,7 @@ class RulesBaseTests(unittest.TestCase):
         rule = Rules(sentence)
         result = rule.check_single_compound()
         self.assertEqual(result, False)
+
 
 if __name__ == '__main__':
     unittest.main()

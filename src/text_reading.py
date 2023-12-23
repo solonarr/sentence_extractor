@@ -8,7 +8,7 @@ import textract
 import os
 import nltk
 from nltk.tokenize import sent_tokenize
-# nltk.download('punkt')
+nltk.download('punkt')
 
 
 class Book:
@@ -57,6 +57,6 @@ class Book:
     def get_sentence(self):
         sentences = sent_tokenize(self._text)
         if self.ext == '.epub':
-            sentences[0] = sentences[0].split('\n')[-1]  # because otherwise the name and the cover gets in
+            sentences[0] = sentences[0].split('\n')[-1]
+            # because otherwise the name and the cover gets in
         return sentences
-
