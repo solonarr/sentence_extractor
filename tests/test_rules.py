@@ -55,7 +55,7 @@ class RulesBaseTests(unittest.TestCase):
         result = rule.check_impersonal()
         self.assertEqual(result, False)
 
-    def check_impersonal_recognises_predicatives(self):
+    def check_impersonal_recognises_predicatives_test(self):
         text = 'Сегодня холодно'
         sentence = SentenceSyntax(text)
         rule = Rules(sentence)
