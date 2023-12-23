@@ -104,10 +104,10 @@ class Rules:
         """
         check_cond = []
         for elem in self.sent_info:
-            if 'nomn' in elem['morph'][0].tag or elem.get('dep') == 'csubj':
+            if 'nomn' in elem['morph'] or elem.get('dep') == 'csubj':
                 return False
-            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph')[0].tag or \
-                    '2per' in elem.get('morph')[0].tag or 'impr' in elem.get('morph')[0].tag:
+            if elem.get('dep') == 'ROOT' and '1per' in elem.get('morph') or \
+                    '2per' in elem.get('morph') or 'impr' in elem.get('morph'):
                 check_cond.append(True)
         if check_cond:
             return True
@@ -124,7 +124,7 @@ class Rules:
                 return False
             if elem.get('dep') == 'ROOT' and '3per' in elem.get('morph') and 'plur' in elem.get('morph'):
                 check_cond.append(True)
-            elif 'plur' in elem.get('morph')[0].tag and 'past' in elem.get('morph')[0].tag:
+            elif 'plur' in elem.get('morph') and 'past' in elem.get('morph'):
                 check_cond.append(True)
         if check_cond:
             return True
