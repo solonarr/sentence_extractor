@@ -18,7 +18,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'nomn' in morph_tag:
+            if 'nomn' in morph_tag.tag:
                 return True
 
     def check_genitive(self):
@@ -30,7 +30,7 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if 'gen2' in morph_tag or 'gent' in morph_tag:
+            if 'gen2' in morph_tag.tag or 'gent' in morph_tag.tag:
                 return True
 
     def check_vocative(self):
@@ -42,11 +42,11 @@ class Rules:
             return False
 
         for morph_tag in self.root_morph:
-            if (len(self.sent_info == 1) and
-                    ('voct' in morph_tag or
-                     'Name' in morph_tag or
-                     ('nomn' in morph_tag and self.text[-1] == '!' and
-                      'anim' in morph_tag))):
+            if (len(self.sent_info) == 1 and
+                    ('voct' in morph_tag.tag or
+                     'Name' in morph_tag.tag or
+                     ('nomn' in morph_tag.tag and self.text[-1] == '!' and
+                      'anim' in morph_tag.tag))):
                 return True
 
    # def check_single_compound(self):
